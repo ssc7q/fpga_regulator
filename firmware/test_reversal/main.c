@@ -69,7 +69,7 @@ void main(){
 		Mpy = 0;
 	}
 
-	if (u1>0){
+	if (u3>0){
 		Mmz = 0;
 		Mpz = 1;
 	}
