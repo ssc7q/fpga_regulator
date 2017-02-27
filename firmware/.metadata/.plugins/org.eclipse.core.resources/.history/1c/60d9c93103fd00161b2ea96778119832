@@ -9,7 +9,6 @@ void main(){
 	//get wx, wy, wz
 	double wx, wy, wz;
 
-	const double pi= 3.14;
 	double dt;
 	double R0, R1, R2, R3;				//кватернион в t0
 	double P1, P2, P3, P0;				//кватернион рассогласования за dt
@@ -39,8 +38,8 @@ void main(){
 	u3=k1*2*Q0*Q3 + k2 * wz;*/
 
 	u1 = 0;
-	u2 = 0;
-	u3 = -(k1*wz + k2*(Q0*Q3-(pi/2)));
+	u2 = -(k1*wy + k2*(Q0*Q2-(pi/2)));
+	u3 = 0;
 
 	//формирование импульса
 	if (u1>0){

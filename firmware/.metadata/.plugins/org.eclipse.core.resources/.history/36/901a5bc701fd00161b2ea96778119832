@@ -9,15 +9,14 @@ void main(){
 	//get wx, wy, wz
 	double wx, wy, wz;
 
-	const double pi= 3.14;
 	double dt;
-	double R0, R1, R2, R3;				//кватернион в t0
-	double P1, P2, P3, P0;				//кватернион рассогласовани€ за dt
+	double R0, R1, R2, R3;	//кватернион в t0
+	double P1, P2, P3, P0;	//кватернион рассогласовани€ за dt
 	double SP, SR;
-	double Q0, Q1, Q2, Q3;				// кватернион в t0+dt
-	double u1, u2, u3; 					//управл€ющие сигналы
-	double k1, k2;						//коэффициенты управлени€
-	int Mmx, Mpx, Mmy, Mpy, Mmz, Mpz; 	//Ў»ћ
+	double Q0, Q1, Q2, Q3;	// кватернион в t0+dt
+	double u1, u2, u3; 		//управл€ющие сигналы
+	double k1, k2;			//коэффициенты управлени€
+	int Mmx, Mpx, Mmy, Mpy, Mmz, Mpz; //Ў»ћ
 
 	P1 = wx*dt*0.5;
 	P2 = wy*dt*0.5;
@@ -33,14 +32,9 @@ void main(){
 	Q3=R0*P3 + R3*P0 + R1*P2 - R2*P1;
 
 	//формирование управл€ющего сигнала u
-
-	/*u1=k1*2*Q0*Q1 + k2 * wx;
+	u1=k1*2*Q0*Q1 + k2 * wx;
 	u2=k1*2*Q0*Q2 + k2 * wy;
-	u3=k1*2*Q0*Q3 + k2 * wz;*/
-
-	u1 = 0;
-	u2 = 0;
-	u3 = -(k1*wz + k2*(Q0*Q3-(pi/2)));
+	u3=k1*2*Q0*Q3 + k2 * wz;
 
 	//формирование импульса
 	if (u1>0){

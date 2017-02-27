@@ -9,7 +9,6 @@ void main(){
 	//get wx, wy, wz
 	double wx, wy, wz;
 
-	const double pi= 3.14;
 	double dt;
 	double R0, R1, R2, R3;				//кватернион в t0
 	double P1, P2, P3, P0;				//кватернион рассогласования за dt
