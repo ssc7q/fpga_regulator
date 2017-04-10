@@ -1,0 +1,125 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Microsemi/Libero_v11.5/projects/testMyCount/simulation
+Emycount
+Z1 w1491467180
+Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z3 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+R0
+Z4 8C:/Microsemi/Libero_v11.5/projects/testMyCount/component/work/myCount/myCount.vhd
+Z5 FC:/Microsemi/Libero_v11.5/projects/testMyCount/component/work/myCount/myCount.vhd
+l0
+L17
+Vf^j?K?PlfCmn1:h9ZMLT]2
+!s100 =FJ<jI^2J?k6<P;Fi>?6l3
+Z6 OW;C;10.3c;59
+31
+Z7 !s110 1491653993
+!i10b 1
+Z8 !s108 1491653992.943000
+Z9 !s90 -reportprogress|300|-93|-explicit|-work|presynth|C:/Microsemi/Libero_v11.5/projects/testMyCount/component/work/myCount/myCount.vhd|
+Z10 !s107 C:/Microsemi/Libero_v11.5/projects/testMyCount/component/work/myCount/myCount.vhd|
+!i113 1
+Z11 o-93 -explicit -work presynth -O0
+Artl
+R2
+R3
+DEx4 work 7 mycount 0 22 f^j?K?PlfCmn1:h9ZMLT]2
+l98
+L32
+Vd1;J>c=25HCM]94hW0Q=[1
+!s100 n8[X=DCCEHzHd3jfA>60z2
+R6
+31
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+Emyrevcount
+Z12 w1491465026
+Z13 DPx4 ieee 15 std_logic_arith 0 22 [G314=:2zXJ`VORJe1J@Z1
+Z14 DPx4 ieee 18 std_logic_unsigned 0 22 ;eZjO2D4ZDz<]0>8AL<ne1
+R2
+R3
+R0
+Z15 8C:/Microsemi/Libero_v11.5/projects/testMyCount/hdl/myCount.vhd
+Z16 FC:/Microsemi/Libero_v11.5/projects/testMyCount/hdl/myCount.vhd
+l0
+L21
+V]j]UkJ4F`;g[nP=C4>b`k3
+!s100 f``5[`kF^@K]_?odD`hkh0
+R6
+31
+Z17 !s110 1491653991
+!i10b 1
+Z18 !s108 1491653991.301000
+Z19 !s90 -reportprogress|300|-93|-explicit|-work|presynth|C:/Microsemi/Libero_v11.5/projects/testMyCount/hdl/myCount.vhd|
+Z20 !s107 C:/Microsemi/Libero_v11.5/projects/testMyCount/hdl/myCount.vhd|
+!i113 1
+R11
+Abehav
+R13
+R14
+R2
+R3
+DEx4 work 10 myrevcount 0 22 ]j]UkJ4F`;g[nP=C4>b`k3
+l32
+L30
+VR^=hC[;0U8aHRQ<cXSdzD2
+!s100 GzDI^BoI4`U9zW80>`1:R0
+R6
+31
+R17
+!i10b 1
+R18
+R19
+R20
+!i113 1
+R11
+Etestbench
+Z21 w1491467547
+R2
+R3
+R0
+Z22 8C:/Microsemi/Libero_v11.5/projects/testMyCount/stimulus/testbench.vhd
+Z23 FC:/Microsemi/Libero_v11.5/projects/testMyCount/stimulus/testbench.vhd
+l0
+L23
+VX;CLkQkb>nj0TVI_MSKVi2
+!s100 Bgof7?aQFPXFfcVH>Z_oZ1
+R6
+31
+Z24 !s110 1491653994
+!i10b 1
+Z25 !s108 1491653994.221000
+Z26 !s90 -reportprogress|300|-93|-explicit|-work|presynth|C:/Microsemi/Libero_v11.5/projects/testMyCount/stimulus/testbench.vhd|
+Z27 !s107 C:/Microsemi/Libero_v11.5/projects/testMyCount/stimulus/testbench.vhd|
+!i113 1
+R11
+Abehavioral
+R2
+R3
+Z28 DEx4 work 9 testbench 0 22 X;CLkQkb>nj0TVI_MSKVi2
+l52
+L26
+Z29 ViJ08?H]`[51N6il6Ilh;E1
+Z30 !s100 ei5l?5i2Y2K4bNcmb_F@E1
+R6
+31
+R24
+!i10b 1
+R25
+R26
+R27
+!i113 1
+R11
