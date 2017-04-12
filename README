@@ -1,3 +1,8 @@
-магистрская квалификационная работа
+а
+firmware A3PE1500_PQ208
+QT app for QNX
 
-
+needs:
+add PWM
+logic for app
+ext_memProgramm
