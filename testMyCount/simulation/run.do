@@ -1,5 +1,5 @@
 quietly set ACTELLIBNAME ProASIC3E
-quietly set PROJECT_DIR "C:/Microsemi/Libero_v11.5/projects/testMyCount"
+quietly set PROJECT_DIR "C:/Users/vmed/mg_degree/testMyCount"
 
 if {[file exists presynth/_info]} {
    echo "INFO: Simulation library presynth already exists"
