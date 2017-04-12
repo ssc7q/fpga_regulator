@@ -8,7 +8,7 @@
 # vmap -modelsim_quiet proasic3e C:/Microsemi/Libero_v11.5/Designer/lib/modelsim/precompiled/vhdl/proasic3e 
 # Modifying modelsim.ini
 # Model Technology ModelSim Microsemi vcom 10.3c Compiler 2014.07 Jul 19 2014
-# Start time: 08:51:53 on Apr 12,2017
+# Start time: 11:19:21 on Apr 12,2017
 # vcom -reportprogress 300 -93 -explicit -work presynth C:/Users/vmed/mg_degree/testMyCount/hdl/myCount.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
@@ -17,30 +17,30 @@
 # -- Loading package STD_LOGIC_UNSIGNED
 # -- Compiling entity myRevCount
 # -- Compiling architecture behav of myRevCount
-# End time: 08:51:54 on Apr 12,2017, Elapsed time: 0:00:01
+# End time: 11:19:21 on Apr 12,2017, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Model Technology ModelSim Microsemi vcom 10.3c Compiler 2014.07 Jul 19 2014
-# Start time: 08:51:54 on Apr 12,2017
+# Start time: 11:19:21 on Apr 12,2017
 # vcom -reportprogress 300 -93 -explicit -work presynth C:/Users/vmed/mg_degree/testMyCount/component/work/myCount/myCount.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
 # -- Compiling entity myCount
 # -- Compiling architecture RTL of myCount
-# End time: 08:51:55 on Apr 12,2017, Elapsed time: 0:00:01
+# End time: 11:19:22 on Apr 12,2017, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # Model Technology ModelSim Microsemi vcom 10.3c Compiler 2014.07 Jul 19 2014
-# Start time: 08:51:55 on Apr 12,2017
+# Start time: 11:19:22 on Apr 12,2017
 # vcom -reportprogress 300 -93 -explicit -work presynth C:/Users/vmed/mg_degree/testMyCount/stimulus/testbench.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
 # -- Compiling entity testbench
 # -- Compiling architecture behavioral of testbench
-# End time: 08:51:55 on Apr 12,2017, Elapsed time: 0:00:00
+# End time: 11:19:22 on Apr 12,2017, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vsim -gui -do "do run.do" -l testbench_presynth_simulation.log 
-# Start time: 08:51:55 on Apr 12,2017
+# Start time: 11:19:22 on Apr 12,2017
 # //  ModelSim Microsemi 10.3c Jul 19 2014 
 # //
 # //  Copyright 1991-2014 Mentor Graphics Corporation
@@ -64,3 +64,14 @@
 # Loading ieee.std_logic_arith(body)
 # Loading ieee.std_logic_unsigned(body)
 # Loading presynth.myrevcount(behav)
+# End time: 11:20:07 on Apr 12,2017, Elapsed time: 2:28:12
+# Errors: 0, Warnings: 0
+e in use by: Sergey  Hostname: PETROV2  ProcessID: 15316
+# 
+#           Attempting to use alternate WLF file "./wlft0ngzwg".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+# 
+#           Using alternate file: ./wlft0ngzwg
+# 
+# End time: 11:20:12 on Apr 12,2017, Elapsed time: 0:00:50
+# Errors: 0, Warnings: 2

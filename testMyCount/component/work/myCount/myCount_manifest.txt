@@ -1,11 +1,11 @@
 Microsemi Corporation - Microsemi Libero Software Release v11.5 SP2 (Version 11.5.2.6)
 
-Date      :  Thu Apr 06 11:26:21 2017
-Project   :  C:\Microsemi\Libero_v11.5\projects\testMyCount
+Date      :  Wed Apr 12 11:19:08 2017
+Project   :  C:\Users\vmed\mg_degree\testMyCount
 Component :  myCount
 Family    :  ProASIC3E
 
 
 HDL source files for all Synthesis and Simulation tools:
-    C:/Microsemi/Libero_v11.5/projects/testMyCount/component/work/myCount/myCount.vhd
+    C:/Users/vmed/mg_degree/testMyCount/component/work/myCount/myCount.vhd
 

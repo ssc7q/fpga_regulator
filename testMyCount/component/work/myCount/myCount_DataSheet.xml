@@ -11,16 +11,16 @@
     <hdl-type>VHDL</hdl-type>
     <project-description>
     </project-description>
-    <location>C:/Microsemi/Libero_v11.5/projects/testMyCount/component/work/myCount</location>
-    <state>GENERATED ( Thu Apr 06 11:26:21 2017 )</state>
+    <location>C:/Users/vmed/mg_degree/testMyCount/component/work/myCount</location>
+    <state>GENERATED ( Wed Apr 12 11:19:08 2017 )</state>
     <swide-toolchain>SoftConsole workspace has not been generated</swide-toolchain>
   </project-settings>
   <site-map>
   </site-map>
   <fileset>
     <name>HDL File(s)</name>
-    <file>C:\Microsemi\Libero_v11.5\projects\testMyCount\component\work\myCount\myCount.vhd</file>
-    <file>C:\Microsemi\Libero_v11.5\projects\testMyCount\hdl\myCount.vhd</file>
+    <file>C:\Users\vmed\mg_degree\testMyCount\component\work\myCount\myCount.vhd</file>
+    <file>C:\Users\vmed\mg_degree\testMyCount\hdl\myCount.vhd</file>
   </fileset>
   <io>
     <port-name>count[9]</port-name>

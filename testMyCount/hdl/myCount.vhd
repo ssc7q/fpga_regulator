@@ -20,7 +20,7 @@ use IEEE.std_logic_arith.all;
 
 entity myRevCount is
 port (
-    clk : in std_logic; --clk from GLB 2MHz
+    clk : in std_logic; --clk GLB 2MHz
     nEnable : in std_logic;
     pEnable : in std_logic;
     nreset : in std_logic;
@@ -33,7 +33,7 @@ begin process (clk, nEnable, pEnable, nreset)
 begin  
     if nreset= '0' then
         pre_count <= "00000000000";
-    elsif (falling_edge(clk)) then
+    elsif (rising_edge(clk)) then
         if (pEnable='1' and nEnable='0') then
             pre_count <= pre_count + '1';
         elsif (pEnable='0' and nEnable='1') then

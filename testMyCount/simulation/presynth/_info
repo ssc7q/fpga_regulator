@@ -7,119 +7,119 @@ z2
 !i10e 25
 !i10f 100
 cModel Technology
-Z0 dC:/Microsemi/Libero_v11.5/projects/testMyCount/simulation
+dC:/Microsemi/Libero_v11.5/projects/testMyCount/simulation
 Emycount
-Z1 w1491972582
-Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
-Z3 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
-Z4 dC:/Users/vmed/mg_degree/testMyCount/simulation
-Z5 8C:/Users/vmed/mg_degree/testMyCount/component/work/myCount/myCount.vhd
-Z6 FC:/Users/vmed/mg_degree/testMyCount/component/work/myCount/myCount.vhd
+Z0 w1491981547
+Z1 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z2 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+Z3 dC:/Users/vmed/mg_degree/testMyCount/simulation
+Z4 8C:/Users/vmed/mg_degree/testMyCount/component/work/myCount/myCount.vhd
+Z5 FC:/Users/vmed/mg_degree/testMyCount/component/work/myCount/myCount.vhd
 l0
 L17
 Vf^j?K?PlfCmn1:h9ZMLT]2
 !s100 =FJ<jI^2J?k6<P;Fi>?6l3
-Z7 OW;C;10.3c;59
+Z6 OW;C;10.3c;59
 31
-Z8 !s110 1491972714
+Z7 !s110 1491981561
 !i10b 1
-Z9 !s108 1491972714.476000
-Z10 !s90 -reportprogress|300|-93|-explicit|-work|presynth|C:/Users/vmed/mg_degree/testMyCount/component/work/myCount/myCount.vhd|
-Z11 !s107 C:/Users/vmed/mg_degree/testMyCount/component/work/myCount/myCount.vhd|
+Z8 !s108 1491981561.646000
+Z9 !s90 -reportprogress|300|-93|-explicit|-work|presynth|C:/Users/vmed/mg_degree/testMyCount/component/work/myCount/myCount.vhd|
+Z10 !s107 C:/Users/vmed/mg_degree/testMyCount/component/work/myCount/myCount.vhd|
 !i113 1
-Z12 o-93 -explicit -work presynth -O0
+Z11 o-93 -explicit -work presynth -O0
 Artl
+R1
 R2
-R3
 DEx4 work 7 mycount 0 22 f^j?K?PlfCmn1:h9ZMLT]2
 l98
 L32
 Vd1;J>c=25HCM]94hW0Q=[1
 !s100 n8[X=DCCEHzHd3jfA>60z2
-R7
+R6
 31
-R8
+R7
 !i10b 1
+R8
 R9
 R10
-R11
 !i113 1
-R12
+R11
 Emyrevcount
-R1
+Z12 w1491981541
 Z13 DPx4 ieee 15 std_logic_arith 0 22 [G314=:2zXJ`VORJe1J@Z1
 Z14 DPx4 ieee 18 std_logic_unsigned 0 22 ;eZjO2D4ZDz<]0>8AL<ne1
+R1
 R2
 R3
-R4
 Z15 8C:/Users/vmed/mg_degree/testMyCount/hdl/myCount.vhd
 Z16 FC:/Users/vmed/mg_degree/testMyCount/hdl/myCount.vhd
 l0
 L21
 V]j]UkJ4F`;g[nP=C4>b`k3
 !s100 f``5[`kF^@K]_?odD`hkh0
-R7
+R6
 31
-!s110 1491972713
+R7
 !i10b 1
-Z17 !s108 1491972713.945000
+Z17 !s108 1491981561.174000
 Z18 !s90 -reportprogress|300|-93|-explicit|-work|presynth|C:/Users/vmed/mg_degree/testMyCount/hdl/myCount.vhd|
 Z19 !s107 C:/Users/vmed/mg_degree/testMyCount/hdl/myCount.vhd|
 !i113 1
-R12
+R11
 Abehav
 R13
 R14
+R1
 R2
-R3
 DEx4 work 10 myrevcount 0 22 ]j]UkJ4F`;g[nP=C4>b`k3
 l32
 L30
-VR^=hC[;0U8aHRQ<cXSdzD2
-!s100 GzDI^BoI4`U9zW80>`1:R0
-R7
+V1^eI9Z:]^m;AfeGmKkT^:2
+!s100 ]IGTMT6nPXI?JU7W:c5:^3
+R6
 31
-R8
+R7
 !i10b 1
 R17
 R18
 R19
 !i113 1
-R12
+R11
 Etestbench
+Z20 w1491972582
 R1
 R2
 R3
-R4
-Z20 8C:/Users/vmed/mg_degree/testMyCount/stimulus/testbench.vhd
-Z21 FC:/Users/vmed/mg_degree/testMyCount/stimulus/testbench.vhd
+Z21 8C:/Users/vmed/mg_degree/testMyCount/stimulus/testbench.vhd
+Z22 FC:/Users/vmed/mg_degree/testMyCount/stimulus/testbench.vhd
 l0
 L23
 VX;CLkQkb>nj0TVI_MSKVi2
 !s100 Bgof7?aQFPXFfcVH>Z_oZ1
-R7
+R6
 31
-Z22 !s110 1491972715
+Z23 !s110 1491981562
 !i10b 1
-Z23 !s108 1491972715.271000
-Z24 !s90 -reportprogress|300|-93|-explicit|-work|presynth|C:/Users/vmed/mg_degree/testMyCount/stimulus/testbench.vhd|
-Z25 !s107 C:/Users/vmed/mg_degree/testMyCount/stimulus/testbench.vhd|
+Z24 !s108 1491981562.305000
+Z25 !s90 -reportprogress|300|-93|-explicit|-work|presynth|C:/Users/vmed/mg_degree/testMyCount/stimulus/testbench.vhd|
+Z26 !s107 C:/Users/vmed/mg_degree/testMyCount/stimulus/testbench.vhd|
 !i113 1
-R12
+R11
 Abehavioral
+R1
 R2
-R3
-Z26 DEx4 work 9 testbench 0 22 X;CLkQkb>nj0TVI_MSKVi2
+Z27 DEx4 work 9 testbench 0 22 X;CLkQkb>nj0TVI_MSKVi2
 l52
 L26
-Z27 ViJ08?H]`[51N6il6Ilh;E1
-Z28 !s100 ei5l?5i2Y2K4bNcmb_F@E1
-R7
+Z28 ViJ08?H]`[51N6il6Ilh;E1
+Z29 !s100 ei5l?5i2Y2K4bNcmb_F@E1
+R6
 31
-R22
-!i10b 1
 R23
+!i10b 1
 R24
 R25
+R26
 !i113 1
-R12
+R11

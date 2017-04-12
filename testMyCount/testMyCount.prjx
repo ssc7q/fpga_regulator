@@ -47,12 +47,12 @@ SIZE="413"
 ENDFILE
 VALUE "<project>\component\work\myCount\myCount.cxf,actgen_cxf"
 STATE="utd"
-TIME="1491972582"
+TIME="1491981548"
 SIZE="2169"
 ENDFILE
 VALUE "<project>\component\work\myCount\myCount.vhd,hdl"
 STATE="utd"
-TIME="1491972582"
+TIME="1491981547"
 SIZE="5230"
 PARENT="<project>\component\work\myCount\myCount.cxf"
 IS_READONLY="TRUE"
@@ -64,8 +64,8 @@ SIZE="205"
 ENDFILE
 VALUE "<project>\hdl\myCount.vhd,hdl"
 STATE="utd"
-TIME="1491972582"
-SIZE="1254"
+TIME="1491981541"
+SIZE="1248"
 ENDFILE
 VALUE "<project>\simulation\run.do,do"
 STATE="utd"
@@ -74,8 +74,8 @@ SIZE="713"
 ENDFILE
 VALUE "<project>\simulation\testbench_presynth_simulation.log,log"
 STATE="utd"
-TIME="1491972582"
-SIZE="3130"
+TIME="1491981561"
+SIZE="984"
 ENDFILE
 VALUE "<project>\simulation\wave.do,do"
 STATE="utd"
@@ -181,7 +181,7 @@ NAME="ModelSim ME"
 FUNCTION="Simulation"
 TOOL="ModelSim"
 LOCATION="C:\Microsemi\Libero_v11.5\Model\win32acoem\modelsim.exe"
-PARAM=""
+PARAM=" -l testbench_presynth_simulation.log "
 BATCH=0
 LICENSE=""
 IS32BIT="1"
@@ -230,8 +230,13 @@ LIST UserCustomizedFileList
 ENDLIST
 LIST OpenedFileList
 ORIENTATION;HORIZONTAL
+SmartDesign;myCount;0
+Reports;Reports;0
+ReportsCurrentItem;Project Summary:testMyCount.log
 StartPage;StartPage;0
-ACTIVEVIEW;StartPage
+HDL;hdl\myCount.vhd;0
+HDL;stimulus\testbench.vhd;0
+ACTIVEVIEW;myCount
 ENDLIST
 LIST ModuleSubBlockList
 LIST "DESIGN_FIRMWARE::work","component\work\DESIGN_FIRMWARE\DESIGN_FIRMWARE.cxf","TRUE","FALSE"
@@ -248,4 +253,7 @@ SUBBLOCK "myCount::work","component\work\myCount\myCount.vhd","TRUE","FALSE"
 ENDLIST
 ENDLIST
 LIST ActiveTestBenchList
+LIST "myCount::work"
+ACTIVETESTBENCH "testbench::work","stimulus\testbench.vhd","FALSE"
+ENDLIST
 ENDLIST
