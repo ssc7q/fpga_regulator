@@ -1,9 +1,0 @@
-!SESSION 2017-02-27 17:57:54.285 -----------------------------------------------
-eclipse.buildId=M20130329-1600
-java.version=1.6.0_22
-java.vendor=Sun Microsystems Inc.
-BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=ru_RU
-Command-line arguments:  -os win32 -ws win32 -arch x86
-
-!ENTRY org.eclipse.cdt.core 1 0 2017-02-27 18:00:41.798
-!MESSAGE Indexed 'test_reversal' (0 sources, 8 headers) in 0,04 sec: 0 declarations; 0 references; 8 unresolved inclusions; 0 syntax errors; 0 unresolved names (0,00 %)
