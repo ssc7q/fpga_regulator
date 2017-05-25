@@ -4,6 +4,8 @@
 #include "PCI1753.h"
 #include "PCI1713.h"
 #include <QString>
+#include "PulseGeneratorController.h"
+#include "PortReaderWriter.h"
 
 class MyThread : public QThread
 {
@@ -20,6 +22,9 @@ private:
     PCI1713 PCI1713_3;
     void reload_PCI1713();
     float data[32];
+    PulseGeneratorController boardController;
+    PortReaderWriter prw;
+    static const int activeChannels[];
 
 };
 

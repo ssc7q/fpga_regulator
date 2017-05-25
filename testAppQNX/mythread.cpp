@@ -23,12 +23,18 @@
 #include <sys/netmgr.h>
 #include <hw/inout.h>
 #include <sched.h>
+#include "PulseGeneratorController.h"
+
 
 MyThread::MyThread()
 {
 }
+
+
 #define CODE_TIMER      2
 #define PERIOD			1000
+
+int const MyThread::activeChannels[] = {0, 20, 1, 21, 2, 23}; //Channels: 0 - positive X, 20 - negative X; 1 - positive Y, 21 - Negative Y; 2 - positive Z, 23 - negative Z;
 
 void MyThread::run()
 {
@@ -44,7 +50,8 @@ void MyThread::run()
     struct _clockperiod clk_per_new;
     clk_per_new.fract = 0;
     clk_per_new.nsec = 100000;
-    //int z = 0;
+
+    int quantity = 0;
 
     //********************************************************************
     //*******     timer       ********************************************
@@ -88,7 +95,7 @@ void MyThread::run()
 
     // adjust clock period
     clk_per_new.fract = 0;
-    clk_per_new.nsec = 10000;
+    clk_per_new.nsec = 100000;
 
     if ( ClockPeriod(CLOCK_REALTIME, &clk_per_new, &clk_per_old, 0) == -1)
     {
@@ -103,6 +110,25 @@ void MyThread::run()
     //********************************************************************
     //*******     timer       ********************************************
     //********************************************************************
+
+
+    //********************************************************************
+    //*******  Pulse Generator Controller  *******************************
+    //********************************************************************
+    boardController.setPortRw(&prw);
+    boardController.setBaseAddress(0x1E0);
+    for(int i=0; i<7; i++ ){
+        boardController.writePulseTime(i, 30.0);
+        boardController.writePeriod(i, 0.20);//?
+        boardController.writeQuantity(i, 5);//quantity);
+        boardController.writeInversion(i, 1);
+        boardController.writeContinuity(i, 0);
+    }
+
+    //********************************************************************
+    //*******  Pulse Generator Controller  *******************************
+    //********************************************************************
+
 
     double wx = 0.0;
 
@@ -124,8 +150,11 @@ void MyThread::run()
 
     for(double t = 0.0;;)
         {
-        rcvid = MsgReceivePulse(chid, &msg,sizeof(msg),NULL );//get event from QNX to block thread
+        for(int i=0; i<7; i++ )
+            boardController.writeQuantity(i, quantity);
 
+        rcvid = MsgReceivePulse(chid, &msg,sizeof(msg),NULL );//get event from QNX to block thread
+        boardController.startAll();
         reload_PCI1713();
 
         switch(int(wx)){
@@ -151,13 +180,13 @@ void MyThread::run()
         case (0)    : wx = wx; break;
         }*/
 
-
+        quantity = 3 - wx;
         emit send(double(data[0]), t);
         t=t+0.5;
         }
 }
 
 void MyThread::reload_PCI1713(){
-    for(int i=0; i<32; i++)
-        data[i]=PCI1713_3.read(i);
+    for(int i=0; i<6; i++)
+        data[activeChannels[i]]=PCI1713_3.read(i, 3);
 }
