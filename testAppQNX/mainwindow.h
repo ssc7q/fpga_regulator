@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QTextStream>
 #include "PCI1753.h"
+#include <QString>
 
 namespace Ui {
 class MainWindow;
@@ -26,7 +27,8 @@ private slots:
     void on_bStart_clicked();
     void on_bStop_clicked();
     void writeToFile(double, double);
+    void getMsgToConsole(QString);
 
 };
 
-#endif // MAINWINDOW_H
+#endif

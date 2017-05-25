@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     mythread.cpp \
     qcustomplot.cpp \
     PCI1753.cpp \
-    lib.c
+    lib.c \
+    PCI1713.cpp
 
 HEADERS  += mainwindow.h \
     mythread.h \
@@ -31,6 +32,8 @@ HEADERS  += mainwindow.h \
     PCI1753.h \
     ioadm.h \
     io-adm-msg.h \
-    port_io_msg.h
+    port_io_msg.h \
+    PCI1713.h \
+    adc1713_msg.h
 
 FORMS    += mainwindow.ui

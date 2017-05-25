@@ -9,6 +9,7 @@
 #include <mythread.h>
 #include <QFile>
 #include <QTextStream>
+#include <QString>
 
 
 
@@ -17,6 +18,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    //********************************  initial Graph   *******************************************************
+
     ui->plot->addGraph();
     ui->plot->graph(0)->setPen(QPen(Qt::blue));
     //ui->plot->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
@@ -24,11 +28,18 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->plot->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->plot->xAxis2, SLOT(setRange(QCPRange)));
     connect(ui->plot->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->plot->yAxis2, SLOT(setRange(QCPRange)));
 
+    //********************************  initial Graph   *******************************************************
+
+
+
+    //********************************    output.txt    *******************************************************
+
     QFile file("out.txt");
     if(!file.open(QIODevice::WriteOnly | QIODevice::Text))
         ui->console->insertPlainText("Error: out.txt can't be opened");
     out.setDevice(&file);
 
+    //********************************    output.txt    *******************************************************
 }
 
 MainWindow::~MainWindow()
@@ -70,8 +81,9 @@ void MainWindow::on_bStart_clicked()
 {
     MyThread *thread = new MyThread();
     thread->start();
-    connect(thread, SIGNAL(send(double, double)), this, SLOT(updateGraph(double, double)));
-    connect(thread, SIGNAL(send(double, double)), this, SLOT(writeToFile(double, double)));
+    connect(thread, SIGNAL(send(double, double)),       this, SLOT(updateGraph(double, double)));
+    connect(thread, SIGNAL(send(double, double)),       this, SLOT(writeToFile(double, double)));
+    connect(thread, SIGNAL(sendMsgToConsole(QString)),  this, SLOT(getMsgToConsole(QString)));
 
 }
 
@@ -82,4 +94,10 @@ void MainWindow::on_bStop_clicked()
 void MainWindow::writeToFile(double wx, double t)
 {
     out << wx << "  "<< t << endl;
+}
+
+void MainWindow::getMsgToConsole(QString str)
+{
+    ui->console->insertPlainText(str);
+    ui->console->insertPlainText("\n");
 }

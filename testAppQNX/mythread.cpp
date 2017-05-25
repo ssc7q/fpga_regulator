@@ -47,10 +47,8 @@ void MyThread::run()
     //int z = 0;
 
     //********************************************************************
-    //*******     настройка таймера  *************************************
+    //*******     timer       ********************************************
     //********************************************************************
-
-
 
     //create a channel for timer pulse reception
     if ( (chid = ChannelCreate(0)) == -1 )
@@ -77,9 +75,9 @@ void MyThread::run()
     }
     //setup timer delay and period
     timer.it_value.tv_sec = 0;
-    timer.it_value.tv_nsec = PERIOD*5000;
+    timer.it_value.tv_nsec = PERIOD*5000*100;
     timer.it_interval.tv_sec = 0;
-    timer.it_interval.tv_nsec = PERIOD*5000;
+    timer.it_interval.tv_nsec = PERIOD*5000*100;
 
     // set thread privelege level to allow port IO operations
     if (ThreadCtl(_NTO_TCTL_IO, 0) == -1)
@@ -98,24 +96,38 @@ void MyThread::run()
         //exit(EXIT_FAILURE);
     }
     //ui.teLog->append( tr("Clock period: old = %1 nsec; new = %2 nsec\n").arg(clk_per_old.nsec).arg(clk_per_new.nsec) );
-
     //qApp->processEvents();
     // start timer
     timer_settime(timerid,0,&timer, NULL);
 
     //********************************************************************
-    //*******     настройка таймера  *************************************
+    //*******     timer       ********************************************
     //********************************************************************
 
     double wx = 0.0;
-    if(PCI1753_0.open(0)==0){
+
+
+    //Trying to open PCI's
+    if(PCI1753_0.open(0)== 0){
+        sendMsgToConsole("PCI1753 was opened!");
         PCI1753_0.setDirection(4, 0);
     }
+    else
+        sendMsgToConsole("Error: I can't open 1753");
 
-    {
+    if (PCI1713_3.open(3) == 0)
+        sendMsgToConsole("PCI1713_3 was opened!");
+    else
+        sendMsgToConsole("Error: I can't open 1713_3");
+
+
+
     for(double t = 0.0;;)
         {
         rcvid = MsgReceivePulse(chid, &msg,sizeof(msg),NULL );//get event from QNX to block thread
+
+        reload_PCI1713();
+
         switch(int(wx)){
             case (0):
                 PCI1753_0.writePin(26, 1);
@@ -138,8 +150,14 @@ void MyThread::run()
         case (-1)   : wx = -0.11 + wx; break;
         case (0)    : wx = wx; break;
         }*/
-        emit send(wx, t);
-        t=t+0.05;
+
+
+        emit send(double(data[0]), t);
+        t=t+0.5;
         }
-    }
+}
+
+void MyThread::reload_PCI1713(){
+    for(int i=0; i<32; i++)
+        data[i]=PCI1713_3.read(i);
 }

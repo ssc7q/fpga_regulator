@@ -55,7 +55,7 @@
      <item>
       <widget class="QPlainTextEdit" name="console">
        <property name="plainText">
-        <string>Console..
+        <string>
 </string>
        </property>
       </widget>
