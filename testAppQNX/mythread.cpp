@@ -82,9 +82,9 @@ void MyThread::run()
     }
     //setup timer delay and period
     timer.it_value.tv_sec = 0;
-    timer.it_value.tv_nsec = PERIOD*5000*100;
+    timer.it_value.tv_nsec = PERIOD*5000;
     timer.it_interval.tv_sec = 0;
-    timer.it_interval.tv_nsec = PERIOD*5000*100;
+    timer.it_interval.tv_nsec = PERIOD*5000;
 
     // set thread privelege level to allow port IO operations
     if (ThreadCtl(_NTO_TCTL_IO, 0) == -1)
@@ -131,7 +131,7 @@ void MyThread::run()
 
 
     double wx = 0.0;
-
+    int z = 0;
 
     //Trying to open PCI's
     if(PCI1753_0.open(0)== 0){
@@ -147,6 +147,7 @@ void MyThread::run()
         sendMsgToConsole("Error: I can't open 1713_3");
 
 
+    sendMsgToConsole("TESTING WAS LAUNCHED!");
 
     for(double t = 0.0;;)
         {
@@ -156,8 +157,12 @@ void MyThread::run()
         rcvid = MsgReceivePulse(chid, &msg,sizeof(msg),NULL );//get event from QNX to block thread
         boardController.startAll();
         reload_PCI1713();
+        if(double(data[0])>1.5)
+            z = 1;
+        else
+            z = 0;
 
-        switch(int(wx)){
+        /*switch(int(wx)){
             case (0):
                 PCI1753_0.writePin(26, 1);
                 wx=double(PCI1753_0.readPin(26));
@@ -166,23 +171,19 @@ void MyThread::run()
                 PCI1753_0.writePin(26, 0);
                 wx=double(PCI1753_0.readPin(26));
                 break;
-        }
+        }*/
 
-        //wx = qSin(0.05*t)+qSin(0.01*t);
-        /*if(qSin(0.05*t)+qSin(0.01*t)>0)
-            z=1;
-        else
-            z=-1;
+
         switch(z)
         {
         case (1)    : wx = 0.11 + wx; break;
         case (-1)   : wx = -0.11 + wx; break;
         case (0)    : wx = wx; break;
-        }*/
+        }
 
-        quantity = 3 - wx;
-        emit send(double(data[0]), t);
-        t=t+0.5;
+        quantity = int(wx/0.5+0.5);
+        emit send(double(wx), t);
+        t=t+0.05;
         }
 }
 
