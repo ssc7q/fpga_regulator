@@ -17,6 +17,8 @@ public:
 signals:
     void send(double, double);
     void sendMsgToConsole(QString);
+
+    void sendinfo(double, double, double, double, double);
 private:
     PCI1753 PCI1753_0;
     PCI1713 PCI1713_3;

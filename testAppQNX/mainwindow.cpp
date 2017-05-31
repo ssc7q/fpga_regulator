@@ -30,7 +30,21 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //********************************  initial Graph   *******************************************************
 
+    //for tests
 
+    ui->plotData0->addGraph();
+    ui->plotData0->graph(0)->setPen(QPen(Qt::blue));
+    ui->plotData0->addGraph();
+    ui->plotData0->graph(1)->setPen(QPen(Qt::red));
+    connect(ui->plotData0->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->plotData0->xAxis2, SLOT(setRange(QCPRange)));
+    connect(ui->plotData0->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->plotData0->yAxis2, SLOT(setRange(QCPRange)));
+
+    ui->plotQuan0->addGraph();
+    ui->plotQuan0->graph(0)->setPen(QPen(Qt::blue));
+    ui->plotQuan0->addGraph();
+    ui->plotQuan0->graph(1)->setPen(QPen(Qt::red));
+    connect(ui->plotQuan0->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->plotQuan0->xAxis2, SLOT(setRange(QCPRange)));
+    connect(ui->plotQuan0->yAxis, SIGNAL(rangeChanged(QCPRange)), ui->plotQuan0->yAxis2, SLOT(setRange(QCPRange)));
 
     //********************************    output.txt    *******************************************************
 
@@ -84,6 +98,7 @@ void MainWindow::on_bStart_clicked()
     connect(thread, SIGNAL(send(double, double)),       this, SLOT(updateGraph(double, double)));
     connect(thread, SIGNAL(send(double, double)),       this, SLOT(writeToFile(double, double)));
     connect(thread, SIGNAL(sendMsgToConsole(QString)),  this, SLOT(getMsgToConsole(QString)));
+    connect(thread, SIGNAL(sendinfo(double, double, double, double, double)), this, SLOT(getInfo(double,double,double,double,double)));
 
 }
 
@@ -100,4 +115,36 @@ void MainWindow::getMsgToConsole(QString str)
 {
     ui->console->insertPlainText(str);
     ui->console->insertPlainText("\n");
+}
+
+void MainWindow::getInfo(double data0, double data1, double quan0, double quan1, double t){
+    int frequpdate = 2; //frequancy of update graph
+    int weight = 50;
+    static double lastpointKey = 0;
+    if (t-lastpointKey > frequpdate)
+    {
+        ui->plotData0->graph(0)->addData(t, data0);
+        ui->plotData0->graph(0)->removeDataBefore(t-weight);
+        ui->plotData0->graph(0)->rescaleValueAxis();
+        ui->plotData0->graph(1)->addData(t, data1);
+        ui->plotData0->graph(1)->removeDataBefore(t-weight);
+        ui->plotData0->graph(1)->rescaleValueAxis();
+        lastpointKey = t;
+    }
+    ui->plotData0->xAxis->setRange(t+2.5, weight, Qt::AlignRight);
+    ui->plotData0->replot();
+
+
+    if (t-lastpointKey > frequpdate)
+    {
+        ui->plotQuan0->graph(0)->addData(t, (quan0+1.0));
+        ui->plotQuan0->graph(0)->removeDataBefore(t-weight);
+        ui->plotQuan0->graph(0)->rescaleValueAxis();
+        ui->plotData0->graph(1)->addData(t, (quan1-1.0));
+        ui->plotData0->graph(1)->removeDataBefore(t-weight);
+        ui->plotData0->graph(1)->rescaleValueAxis();
+        lastpointKey = t;
+    }
+    ui->plotQuan0->xAxis->setRange(t+2.5, weight, Qt::AlignRight);
+    ui->plotQuan0->replot();
 }

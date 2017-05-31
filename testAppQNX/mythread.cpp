@@ -50,8 +50,8 @@ void MyThread::run()
     struct _clockperiod clk_per_new;
     clk_per_new.fract = 0;
     clk_per_new.nsec = 100000;
-
-    int quantity = 0;
+    int quantity[6] = {0,0,0,0,0,0};
+    //int quantity = 0;
 
     //********************************************************************
     //*******     timer       ********************************************
@@ -117,10 +117,10 @@ void MyThread::run()
     //********************************************************************
     boardController.setPortRw(&prw);
     boardController.setBaseAddress(0x1E0);
-    for(int i=0; i<7; i++ ){
+    for(int i=0; i<6; i++ ){
         boardController.writePulseTime(i, 30.0);
         boardController.writePeriod(i, 0.20);//?
-        boardController.writeQuantity(i, 5);//quantity);
+        boardController.writeQuantity(i, 0);//quantity);
         boardController.writeInversion(i, 1);
         boardController.writeContinuity(i, 0);
     }
@@ -132,7 +132,7 @@ void MyThread::run()
 
     double wx = 0.0;
     int z = 0;
-
+    int t1753 = 0;
     //Trying to open PCI's
     if(PCI1753_0.open(0)== 0){
         sendMsgToConsole("PCI1753 was opened!");
@@ -150,39 +150,54 @@ void MyThread::run()
     sendMsgToConsole("TESTING WAS LAUNCHED!");
 
     for(double t = 0.0;;)
+
         {
         for(int i=0; i<7; i++ )
-            boardController.writeQuantity(i, quantity);
+            boardController.writeQuantity(i, quantity[i]); //40 - 0ch(green), 42 - 1ch
+
 
         rcvid = MsgReceivePulse(chid, &msg,sizeof(msg),NULL );//get event from QNX to block thread
+//******start new clk****************************************************
         boardController.startAll();
         reload_PCI1713();
-        if(double(data[0])>1.5)
+        if(double(data[0])>2.5 && data[1]<2.5)
             z = 1;
+        else if(double(data[1])>2.5 && data[0]<2.5)
+            z = -1;
         else
             z = 0;
 
-        /*switch(int(wx)){
+//*************control timer********************************************
+        switch(int(t1753)){
             case (0):
                 PCI1753_0.writePin(26, 1);
-                wx=double(PCI1753_0.readPin(26));
+                t1753=double(PCI1753_0.readPin(26));
                 break;
             case (1):
                 PCI1753_0.writePin(26, 0);
-                wx=double(PCI1753_0.readPin(26));
+                t1753=double(PCI1753_0.readPin(26));
                 break;
-        }*/
-
-
+        }
+//*************control timer********************************************
         switch(z)
         {
-        case (1)    : wx = 0.11 + wx; break;
-        case (-1)   : wx = -0.11 + wx; break;
+        case (1)    : wx =  0.011*0.05 + wx; break;
+        case (-1)   : wx = -0.011*0.05 + wx; break;
         case (0)    : wx = wx; break;
         }
 
-        quantity = int(wx/0.5+0.5);
-        emit send(double(wx), t);
+
+        if (wx>0.0){
+            quantity[0]=static_cast<int>(wx/0.0000304+0.5);
+            quantity[1]=0;}
+        else if(wx<0.0){
+            quantity[1]=static_cast<int>((-wx)/0.0000304+0.5);
+            quantity[0]=0;}
+        else{
+            quantity[0]=0;
+            quantity[1]=0;}
+        emit send(wx, t);
+        emit sendinfo(data[0], data[1], z, quantity[0], t);
         t=t+0.05;
         }
 }

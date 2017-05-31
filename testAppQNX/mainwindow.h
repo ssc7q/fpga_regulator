@@ -29,6 +29,8 @@ private slots:
     void writeToFile(double, double);
     void getMsgToConsole(QString);
 
+    void getInfo(double, double, double, double, double);
+
 };
 
 #endif
