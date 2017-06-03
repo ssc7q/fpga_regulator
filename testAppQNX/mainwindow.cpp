@@ -43,10 +43,16 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //********************************    output.txt    *******************************************************
 
-    QFile file("out.txt");
-    if(!file.open(QIODevice::WriteOnly | QIODevice::Text))
-        ui->console->insertPlainText("Error: out.txt can't be opened");
+    file.setFileName("/root/testButton/out.txt");
+
+    if(!file.open(QIODevice::WriteOnly | QIODevice::Text)){
+        ui->console->insertPlainText("error open out.txt");
+    }
+
     out.setDevice(&file);
+    out << "start" << "\n";
+    out << "wx    Q0    Q1      t\n";
+
 
     //********************************    output.txt    *******************************************************
 }
@@ -92,7 +98,7 @@ void MainWindow::on_bStart_clicked()
     MyThread *thread = new MyThread();
     thread->start();
     connect(thread, SIGNAL(send(double, double)),       this, SLOT(updateGraph(double, double)));
-    connect(thread, SIGNAL(send(double, double)),       this, SLOT(writeToFile(double, double)));
+    connect(thread, SIGNAL(sendf(double, double, double, double)),       this, SLOT(writeToFile(double, double, double, double)));
     connect(thread, SIGNAL(sendMsgToConsole(QString)),  this, SLOT(getMsgToConsole(QString)));
     connect(thread, SIGNAL(sendinfo(double, double, double)), this, SLOT(getInfo(double,double, double)));
 
@@ -100,12 +106,13 @@ void MainWindow::on_bStart_clicked()
 
 void MainWindow::on_bStop_clicked()
 {
+    file.close();
 }
 
-//void MainWindow::writeToFile(double wx, double t)
-//{
-//    out << wx << "  "<< t << endl;
-//}
+void MainWindow::writeToFile(double wx, double Q0, double Q1, double t)
+{
+    out << wx <<"   "<<Q0<<"    "<<Q1 <<"   "<< t << endl;
+}
 
 void MainWindow::getMsgToConsole(QString str)
 {

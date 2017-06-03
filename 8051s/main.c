@@ -27,14 +27,14 @@ __data at 0x9F unsigned char XRB3;
 
 
 #define u0				0.009
-#define RADIAN_PER_CNT 	0.0000304948
+#define RADIAN_PER_CNT 	0.0000304
 #define CLK 			0.2
 
 __xdata volatile float Wx, R0, R1, R2, R3, SR, SP, P0, P1, P2, P3, Q0, Q1, Q2, Q3, u1 = 0.0;
-__xdata volatile signed short cnt, pre_cnt = 0;
+__xdata volatile unsigned short cnt, pre_cnt = 0;
 __xdata volatile int i = 0;
-
-volatile signed short getcWx(signed short, signed short);
+__xdata volatile unsigned char pwm = 0;
+volatile signed short getcWx(unsigned short, unsigned short);
 volatile unsigned char PWM(float);
 
 void main(){
@@ -44,40 +44,47 @@ void main(){
 		*(&configREG_1 + i*0x04)=0x03;
 	}
 
-
-
-	R0=0.7071;
-	R1=0.7071;
 	//****timer****
 	XWB3=0x00;
-	XWB2=0x01;
-	XWB1=0x31;
-	TimerLoad=0x2D; // 5 000 000976 //0.2 sec timer
-	TimerPrescale=0x07; // :128
+	XWB2=0x00;
+	XWB1=0x3D;
+	TimerLoad=0x09; // 15 625 //0.2 sec timer
+	TimerPrescale=0x06; // :128
 	TimerControl=0x03; //011
 	//****timer****
 
-	XWB3 = 0;
-	XWB2 = 0;
-	XWB1 = 0;
+	R0=0.7071;
+	R1=0.7071;
 
 	for(;;){
 		if(TimerRIS==1){
+			TimerIntClr = 0;
 			XWB3 = 0x00;
 			XWB2 = 0x00;
-			if(u1<0.0){
-				XWB1 = 0x02;
-				dataout = PWM((-1)*u1);}
+			XWB1 = 0x00;
+		/*********check clk********
+			if(dataout==0x00){
+				dataout = 0x11;}
 			else{
-				XWB1 = 0x03;
-				dataout = PWM(u1);}
+				dataout = 0x00;}
+		//*********check impulse*****/
 
-			cnt = XRB1*sizeof(datain) + datain;
-			XRB3 = 0x00;
-			XRB2 = 0x00;
-			XRB1 = 0x00;
-			Wx = (float)getcWx(cnt, pre_cnt);
-			Wx = Wx*RADIAN_PER_CNT;
+		//********************PWM********************
+			if(u1>0.0){
+				pwm = PWM(u1);
+				XWB1 = 0x03;
+				dataout = pwm;}
+			else{
+				pwm = PWM(-u1);
+				XWB1 = 0x02;
+				dataout = pwm;}
+		//********************PWM********************/
+
+			pre_cnt = cnt;
+			cnt = (unsigned short)datain;
+			cnt = (unsigned short)XRB1*256 + cnt;
+
+			Wx = getcWx(cnt, pre_cnt)*RADIAN_PER_CNT/CLK;
 
 			P1 = Wx/2.0*CLK;
 			P2 = 0.0;//Wy/2*CLK;
@@ -93,7 +100,16 @@ void main(){
 			Q2 = R0*P2 + R2*P0 + R3*P1 - R1*P3;
 			Q3 = R0*P3 + R3*P0 + R1*P2 - R2*P1;
 
-			u1 = -(2*(Q0*Q1) + 7*Wx);
+
+			if(Wx>-0.1)
+				u1 = -1;
+			else
+				u1 = 0;
+
+			if(R1<0.34202) //turn angle
+				u1 = -(2*(Q0*Q1)+7*Wx);
+
+			//u1 = -(2*(Q0*Q1) + 7*Wx);
 			//u2 = -(2*(Q0*Q2) + 7*Wy);
 			//u3 = -(2*(Q0*Q3) + 7*Wz);
 
@@ -101,16 +117,16 @@ void main(){
 			R1 = Q1;
 			R2 = Q2;
 			R3 = Q3;
-			pre_cnt = cnt;
+
 			XWB3 = 0;
 			XWB2 = 0x00;
-			XWB1 = 0x00;
+			XWB1 = XWB1-0x02;
 			dataout = 0x00;
 			}
 		}
 	}
 
-signed short getcWx(signed short cnt, signed short pre_cnt){
+signed short getcWx(unsigned short cnt, unsigned short pre_cnt){
 	if(cnt>=pre_cnt){
 		if((cnt-pre_cnt)<1024)
 			return cnt-pre_cnt;
@@ -135,5 +151,5 @@ unsigned char PWM(float u){
 	else if((2.5*u0)<u && u<=(3.0*u0))
 		return 0xA0; //160
 	else
-		return 0xC8; //200
+		return 0xC7; //200
 }

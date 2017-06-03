@@ -33,7 +33,7 @@ MyThread::MyThread()
 
 #define CODE_TIMER      2
 #define PERIOD			1000
-
+#define CLK             0.005
 int const MyThread::activeChannels[] = {0, 20, 1, 21, 2, 23}; //Channels: 0 - positive X, 20 - negative X; 1 - positive Y, 21 - Negative Y; 2 - positive Z, 23 - negative Z;
 
 void MyThread::run()
@@ -52,6 +52,13 @@ void MyThread::run()
     clk_per_new.nsec = 100000;
     int quantity[6] = {0,0,0,0,0,0};
     double obs_er = 0.0; //Observational error
+
+    //
+    double wx = 0.0, wy = 0.0, wz = 0.0;
+    double R0 = 0.7071, R1 = 0.7071, R2 = 0.0, R3 = 0.0;
+    double P0 = 0.0, P1 = 0.0, P2 = 0.0, P3 = 0.0;
+    double SP = 0.0, SR = 0.0;
+    double Q0 = 0.0, Q1 = 0.0, Q2 = 0.0, Q3 = 0.0;
     //int quantity = 0;
 
     //********************************************************************
@@ -131,7 +138,7 @@ void MyThread::run()
     //********************************************************************
 
 
-    double wx = 0.0;
+
     int z = 0;
     int t1753 = 0;
     double lastime=0.0;
@@ -189,6 +196,7 @@ void MyThread::run()
         }
 
 
+
         if (wx>0.0){
             quantity[0]=static_cast<int>(wx*0.005/0.0000304+obs_er);
             quantity[1]=0;
@@ -201,11 +209,33 @@ void MyThread::run()
         else{
             quantity[0]=0;
             quantity[1]=0;}
-        if(t-lastime>1){
+
+        if(t-lastime>0.01){
             emit send(wx, t);
             emit sendinfo(data[0], data[1], t);
+            emit sendf(wx, Q0, Q1, t);
             lastime=t;
         }
+
+        P1 = wx*0.5*CLK;
+        P2 = wy*0.5*CLK;
+        P3 = wz*0.5*CLK;
+
+        SP = P1*P1 + P2*P2 + P3*P3;
+        SR = R0*R0 + R1*R1 + R2*R2 + R3*R3;
+
+        P0 = (3-SP-SR)*0.5;
+
+        Q0 = R0*P0 - R1*P1 - R2*P2 - R3*P3;
+        Q1 = R0*P1 + R1*P0 + R2*P3 - R3*P2;
+        Q2 = R0*P2 + R2*P0 + R3*P1 - R1*P3;
+        Q3 = R0*P3 + R3*P0 + R1*P2 - R2*P1;
+
+        R0 = Q0;
+        R1 = Q1;
+        R2 = Q2;
+        R3 = Q3;
+
         t=t+0.005;
         }
 }

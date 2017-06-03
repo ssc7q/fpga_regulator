@@ -55,3 +55,6 @@ HEADERS  += mainwindow.h \
     PortReaderWriter.h
 
 FORMS    += mainwindow.ui
+
+OTHER_FILES += \
+    /root/testButton/out.txt

@@ -6,6 +6,8 @@
 #include "PCI1753.h"
 #include <QString>
 
+#include <QFile>
+
 namespace Ui {
 class MainWindow;
 }
@@ -21,12 +23,13 @@ public:
 private:
     Ui::MainWindow *ui;
     QTextStream out;
+    QFile file;
     PCI1753 PCI1753_0;
 private slots:
     void updateGraph(double, double);
     void on_bStart_clicked();
     void on_bStop_clicked();
-//    void writeToFile(double, double);
+    void writeToFile(double, double, double, double);
     void getMsgToConsole(QString);
 
     void getInfo(double, double, double);

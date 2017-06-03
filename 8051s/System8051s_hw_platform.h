@@ -2,7 +2,7 @@
 #define system8051s_HW_PLATFORM_H_
 /*****************************************************************************
 *
-*Created by Microsemi SmartDesign  Thu May 11 12:57:49 2017
+*Created by Microsemi SmartDesign  Sat Jun 03 15:09:55 2017
 *
 *Memory map specification for peripherals in system8051s
 */
@@ -14,6 +14,10 @@
 #define COREGPIO_0                      0x00000000U
 #define CORETIMER_1                     0x00000100U
 #define COREGPIO_1                      0x00000200U
+#define COREGPIO_2                      0x00000300U
+#define COREGPIO_3                      0x00000400U
+#define COREGPIO_4                      0x00000500U
+#define COREGPIO_5                      0x00000600U
 
 
 #endif /* system8051s_HW_PLATFORM_H_*/
