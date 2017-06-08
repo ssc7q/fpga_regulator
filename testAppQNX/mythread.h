@@ -15,7 +15,7 @@ public:
 
     void run();
 signals:
-    void send(double, double);
+    void send(double, double, double, double);
     void sendMsgToConsole(QString);
 
     void sendf(double, double, double, double);

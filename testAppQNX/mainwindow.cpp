@@ -23,6 +23,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->plot->addGraph();
     ui->plot->graph(0)->setPen(QPen(Qt::blue));
+    ui->plot->addGraph();
+    ui->plot->graph(1)->setPen(QPen(Qt::red));
+    ui->plot->addGraph();
+    ui->plot->graph(2)->setPen(QPen(Qt::green));
     //ui->plot->graph(0)->setBrush(QBrush(QColor(240, 255, 200)));
 
     connect(ui->plot->xAxis, SIGNAL(rangeChanged(QCPRange)), ui->plot->xAxis2, SLOT(setRange(QCPRange)));
@@ -62,7 +66,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::updateGraph(double wx, double t)
+void MainWindow::updateGraph(double wx, double wy, double wz, double t)
 {
     int frequpdate = 0.5; //frequancy of update graph
     int weight = 50;
@@ -71,7 +75,18 @@ void MainWindow::updateGraph(double wx, double t)
     {
         ui->plot->graph(0)->addData(t, wx);
         ui->plot->graph(0)->removeDataBefore(t-weight);
-        ui->plot->graph(0)->rescaleValueAxis();
+
+
+        ui->plot->graph(1)->addData(t, wy);
+        ui->plot->graph(1)->removeDataBefore(t-weight);
+
+        ui->plot->graph(2)->addData(t, wz);
+        ui->plot->graph(2)->removeDataBefore(t-weight);
+
+        ui->plot->graph(1)->rescaleValueAxis();
+        ui->plot->graph(2)->rescaleValueAxis(true);
+        ui->plot->graph(0)->rescaleValueAxis(true);
+
         lastpointKey = t;
     }
     ui->plot->xAxis->setRange(t+2.5, weight, Qt::AlignRight);
@@ -97,7 +112,7 @@ void MainWindow::on_bStart_clicked()
 {
     MyThread *thread = new MyThread();
     thread->start();
-    connect(thread, SIGNAL(send(double, double)),       this, SLOT(updateGraph(double, double)));
+    connect(thread, SIGNAL(send(double, double, double, double)),       this, SLOT(updateGraph(double, double, double, double)));
     connect(thread, SIGNAL(sendf(double, double, double, double)),       this, SLOT(writeToFile(double, double, double, double)));
     connect(thread, SIGNAL(sendMsgToConsole(QString)),  this, SLOT(getMsgToConsole(QString)));
     connect(thread, SIGNAL(sendinfo(double, double, double)), this, SLOT(getInfo(double,double, double)));

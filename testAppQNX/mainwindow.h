@@ -26,14 +26,13 @@ private:
     QFile file;
     PCI1753 PCI1753_0;
 private slots:
-    void updateGraph(double, double);
+    void updateGraph(double, double, double, double);
     void on_bStart_clicked();
     void on_bStop_clicked();
     void writeToFile(double, double, double, double);
     void getMsgToConsole(QString);
 
     void getInfo(double, double, double);
-
 };
 
 #endif

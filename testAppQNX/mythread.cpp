@@ -54,8 +54,8 @@ void MyThread::run()
     double obs_er = 0.0; //Observational error
 
     //
-    double wx = 0.0, wy = 0.0, wz = 0.0;
-    double R0 = 0.7071, R1 = 0.7071, R2 = 0.0, R3 = 0.0;
+    double w[] = {0.0, 0.0,  0.0};
+    double R0 = 0.0, R1 = 0.0, R2 = 0.0, R3 = 0.0;
     double P0 = 0.0, P1 = 0.0, P2 = 0.0, P3 = 0.0;
     double SP = 0.0, SR = 0.0;
     double Q0 = 0.0, Q1 = 0.0, Q2 = 0.0, Q3 = 0.0;
@@ -139,7 +139,7 @@ void MyThread::run()
 
 
 
-    int z = 0;
+    int z[] = {0, 0, 0};
     int t1753 = 0;
     double lastime=0.0;
     //Trying to open PCI's
@@ -169,12 +169,6 @@ void MyThread::run()
 
         boardController.startAll();
         reload_PCI1713();
-        if(double(data[0])>2.5 && data[1]<2.5)
-            z = 1;
-        else if(double(data[1])>2.5 && data[0]<2.5)
-            z = -1;
-        else
-            z = 0;
 
 //*************check timer********************************************
         switch(int(t1753)){
@@ -187,39 +181,50 @@ void MyThread::run()
                 t1753=double(PCI1753_0.readPin(26));
                 break;}
 //*************check timer********************************************
+        for (int k = 0; k<3; k++){
+            if(double(data[k*2])>2.5 && data[k*2+1]<2.5)
+                z[k] = 1;
+            else if(double(data[k*2+1])>2.5 && data[k*2]<2.5)
+                z[k] = -1;
+            else
+                z[k] = 0;
 
-        switch(z)
-        {
-        case (1)    : wx =  0.011*0.005 + wx; break;
-        case (-1)   : wx = -0.011*0.005 + wx; break;
-        case (0)    : wx = wx; break;
+
+
+            switch(z[k])
+            {
+            case (1)    : w[k] =  0.011*0.005 + w[k]; break;
+            case (-1)   : w[k] = -0.011*0.005 + w[k]; break;
+            case (0)    : w[k] = w[k]; break;
+            }
+
+            if (w[k]>0.0){
+                quantity[k*2]=static_cast<int>(w[k]*0.005/0.0000304+obs_er);
+                quantity[k*2+1]=0;
+                obs_er = (w[k]*0.005/0.0000304+obs_er)-quantity[k*2];}
+            else if(w[k]<0.0){
+                quantity[k*2+1]=static_cast<int>((-w[k])*0.005/0.0000304+obs_er);
+                quantity[k*2]=0;
+                obs_er =(w[k]*0.005/0.0000304+obs_er)-quantity[k*2+1];
+                quantity[k*2+1]=-quantity[k*2+1];}
+            else{
+                quantity[k*2]=0;
+                quantity[k*2+1]=0;}
+
+
         }
 
 
-
-        if (wx>0.0){
-            quantity[0]=static_cast<int>(wx*0.005/0.0000304+obs_er);
-            quantity[1]=0;
-            obs_er = (wx*0.005/0.0000304+obs_er)-quantity[0];}
-        else if(wx<0.0){
-            quantity[1]=static_cast<int>((-wx)*0.005/0.0000304+obs_er);
-            quantity[0]=0;
-            obs_er =(wx*0.005/0.0000304+obs_er)-quantity[1];
-            quantity[1]=-quantity[1];}
-        else{
-            quantity[0]=0;
-            quantity[1]=0;}
-
         if(t-lastime>0.01){
-            emit send(wx, t);
-            emit sendinfo(data[0], data[1], t);
-            emit sendf(wx, Q0, Q1, t);
+            emit send(w[0], w[1], w[2], t);
+            emit sendinfo(data[2], data[3], t);
+            emit sendf(w[0], Q0, Q1, t);
             lastime=t;
         }
 
-        P1 = wx*0.5*CLK;
-        P2 = wy*0.5*CLK;
-        P3 = wz*0.5*CLK;
+        P1 = w[0]*0.5*CLK;
+        P2 = w[0]*0.5*CLK;
+        P3 = w[0]*0.5*CLK;
 
         SP = P1*P1 + P2*P2 + P3*P3;
         SR = R0*R0 + R1*R1 + R2*R2 + R3*R3;
