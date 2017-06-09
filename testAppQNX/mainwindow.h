@@ -26,10 +26,10 @@ private slots:
     void updateGraph(double, double);
     void on_bStart_clicked();
     void on_bStop_clicked();
-    void writeToFile(double, double);
+//    void writeToFile(double, double);
     void getMsgToConsole(QString);
 
-    void getInfo(double, double, double, double, double);
+    void getInfo(double, double, double);
 
 };
 
